@@ -15,15 +15,18 @@ RUN python manage.py collectstatic --noinput
 
 # Setup nginx
 RUN rm /etc/nginx/sites-enabled/default
-COPY production/web/django.conf /etc/nginx/sites-available/
+COPY production/nginx/django.conf /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available/django.conf /etc/nginx/sites-enabled/django.conf
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Setup supervisord
 RUN mkdir -p /var/log/supervisor
-COPY production/web/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY production/web/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+COPY production/supervisor/celerybeat.conf /etc/supervisor/conf.d/celerybeat.conf
+COPY production/supervisor/celeryd.conf /etc/supervisor/conf.d/celeryd.conf
+COPY production/supervisor/flower.conf /etc/supervisor/conf.d/flower.conf
+COPY production/supervisor/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+COPY production/supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
+COPY production/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 80
 
 CMD ["/usr/bin/supervisord"]

@@ -16,6 +16,19 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from django.http import HttpResponse
+
+import logging
+logger = logging.getLogger(__name__)
+
+
+def index(request):
+    logger.info('Here is some info.')
+    return HttpResponse("Hello, world! This is a Django example.")
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', index, name='index'),
 ]
+
