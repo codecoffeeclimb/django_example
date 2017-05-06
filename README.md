@@ -26,7 +26,8 @@ docker run  -p 5555:5555 \
   -e "MASTER_WORKER=true" \
   -e "CELERY_BROKER_URL=redis://$(ipconfig getifaddr en0)" \
   django_worker
-docker run  -e "MASTER_WORKER=false" \ 
+docker run  \
+  -e "MASTER_WORKER=false" \ 
   -e "CELERY_BROKER_URL=redis://$(ipconfig getifaddr en0)" \
   django_worker
 ```
