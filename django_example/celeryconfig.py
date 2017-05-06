@@ -15,4 +15,12 @@ beat_schedule = {
         'task': 'django_example.celery.debug_task',
         'schedule': 30.0,
     },
+    'debug1-every-30-seconds': {
+        'task': 'app1.tasks.debug_task1',
+        'schedule': 30.0,
+    },
+    'debug2-every-30-seconds': {
+        'task': 'app2.tasks.debug_task2',
+        'schedule': 30.0,
+    },
 }
