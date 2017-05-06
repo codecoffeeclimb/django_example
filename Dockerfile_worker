@@ -14,5 +14,7 @@ RUN pip install -r requirements.txt
 RUN mkdir -p /var/log/supervisor
 COPY production/worker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY production/worker/celeryd.conf /etc/supervisor/conf.d/celeryd.conf
+COPY production/worker/celerybeat.conf /etc/supervisor/conf.d/celerybeat.conf
+COPY production/worker/flower.conf /etc/supervisor/conf.d/flower.conf
 
 CMD ["/usr/bin/supervisord"]
