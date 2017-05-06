@@ -19,7 +19,9 @@ docker build -t django_worker -f Dockerfile_worker .
 
 Run web, worker, and master worker (with celerybeat and flower):
 ```
-docker run -p 80:80 -e "CELERY_BROKER_URL=redis://$(ipconfig getifaddr en0)" django_web
+docker run -p 80:80 \
+  -e "CELERY_BROKER_URL=redis://$(ipconfig getifaddr en0)" \
+  django_web
 docker run  -p 5555:5555 \ 
   -e "MASTER_WORKER=true" \
   -e "CELERY_BROKER_URL=redis://$(ipconfig getifaddr en0)" \
