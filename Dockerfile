@@ -1,3 +1,18 @@
+# Docker build file for Django + Celery app. The following environment variables
+# need to be set to decide the purpose of the image:
+#
+# 1) WEB_SERVER (true|false): if run web server.
+# 2) MASTER_WORKER (true|false): if run celerybeat and flower.
+# 3) WORKER (true|false): if run celeryd.
+#
+# For example, the follwoing command will run everything in one docker image:
+#
+# docker run -p 80:80 -p 5555:5555 \
+#   -e "CELERY_BROKER_URL=redis://$(ipconfig getifaddr en0)" \
+#   -e "WEB_SERVER=true" \
+#   -e "WORKER=true" \
+#   -e "MASTER_WORKER=true" django
+
 FROM ubuntu
 
 RUN apt-get update
@@ -21,12 +36,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Setup supervisord
 RUN mkdir -p /var/log/supervisor
-COPY production/supervisor/celerybeat.conf /etc/supervisor/conf.d/celerybeat.conf
-COPY production/supervisor/celeryd.conf /etc/supervisor/conf.d/celeryd.conf
-COPY production/supervisor/flower.conf /etc/supervisor/conf.d/flower.conf
-COPY production/supervisor/gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
-COPY production/supervisor/nginx.conf /etc/supervisor/conf.d/nginx.conf
-COPY production/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY production/supervisor/*.conf /etc/supervisor/conf.d/
 
+EXPOSE 80 5555
 
 CMD ["/usr/bin/supervisord"]
