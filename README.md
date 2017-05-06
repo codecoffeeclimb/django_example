@@ -1,6 +1,6 @@
 # Django + Celery + Docker
 
-This is a template project as a starting point to build Django app with Celery async task queue. It provides basic Docker production setup:
+This is a template project to build Django app with Celery async task queue. It provides basic Docker production setup to run
 
 - Web server runs Nginx and Gunicorn to serve Django web app.
 
