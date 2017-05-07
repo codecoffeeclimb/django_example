@@ -1,7 +1,7 @@
 import os
 
 
-broker_url = os.environ.get('CELERY_BROKER_URL', 'redis://127.0.0.1:6379')
+broker_url = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379')
 result_backend = broker_url
 
 task_serializer = 'json'
