@@ -129,7 +129,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-# Setup logging.
+# Setup logging. Make all logs by default output to stdout, then can be easily
+# collect by docker logs or other log aggregator.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
