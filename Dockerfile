@@ -23,8 +23,8 @@ RUN apt-get install -y nginx
 RUN apt-get install -y supervisor
 
 # Setup django
-WORKDIR /django_example
-ADD . /django_example
+WORKDIR /app
+ADD . /app
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --noinput
 
